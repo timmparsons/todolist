@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <h1>To Do List</h1>
+    <button id="displayTodosButton">Display Todos</button>
+    <button id="toggleAllButton">Toggle All</button>
+</head>
+<body>
+<script>
+//To Do List
+//View todo x
+//Add todo x 
+//Edit todo x
+//Delete Todo x
+//Toggle Todo
+//Toggle All
+
+let todoList = {
+  todos: [],
+  viewTodo: function() {
+      if(this.todos.length === 0) {
+        console.log("Your Todo list is empty");
+      } else {
+          for (let i = 0; i < this.todos.length; i++) {
+            if(this.todos[i].completed === true) {
+              //print with (x) 
+              console.log('(x)',this.todos[i].todoText);
+            } else {
+            // print with ( )
+            console.log('( )',this.todos[i].todoText);
+        }
+      }
+    }
+  },
+  addTodo: function(todoText) {
+    this.todos.push({
+      todoText: todoText,
+      completed: false
+    });
+    this.viewTodo();
+  },
+  changeTodo: function(position, todoText) {
+    this.todos[position] = todoText;
+    this.viewTodo();
+  },
+  deleteTodo: function(position) {
+    this.todos.splice(position, 1);
+    this.viewTodo();
+  },
+  toggleCompleted: function(position) {
+    let todo = this.todos[position];
+   todo.completed = !todo.completed;
+   this.viewTodo();
+  },
+  toggleAll: function () {
+    let completedTodos = 0;
+    let totalTodos = this.todos.length;
+    
+    //if all are false, make true (loop through and make them true)
+    for(let i = 0; i < totalTodos; i++) {
+      if(this.todos[i].completed === true) {
+        completedTodos++;
+      }
+    }
+    //If everything is true, change to false
+    if(completedTodos === totalTodos) {
+      for (let i =0; i < totalTodos; i++) {
+        this.todos[i].completed = false;
+      }
+      //If everything false, make true
+    } else {
+      for(let i = 0; i < totalTodos; i++) {
+        this.todos[i].completed = true;
+      }
+    }
+    this.viewTodo();
+  }
+};
+
+
+// Access to display to dos button
+
+let displayTodosButton = document.getElementById('displayTodosButton');
+let toggleAllButton = document.getElementById('toggleAllButton')
+
+// Display todos when someone clicks Display todos button
+
+displayTodosButton.addEventListener('click', function() {
+  todoList.viewTodo();
+});
+
+toggleAllButton.addEventListener('click', function() {
+  todoList.toggleAll();
+});
+
+
+</script>
+</body>
+</html>
