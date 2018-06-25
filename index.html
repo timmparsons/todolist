@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To Do List</title>
-    <h1>To Do List</h1>
-    <button id="displayTodosButton">Display Todos</button>
-    <button id="toggleAllButton">Toggle All</button>
+    
 </head>
 <body>
+
+    <h1>To Do List</h1>
+    <div>
+      <button onclick="handlers.displayTodos()">Display Todos</button>
+      <button onclick="handlers.toggleAll()">Toggle All</button>
+    </div>
+    
+
+    <div>
+      <button onclick="handlers.addTodo()">Add</button>
+      <input id="addTodoTextInput" type="text">
+    </div>
+
+    <div>
+      <button onclick="handlers.changeTodo()">Change Todo</button>
+      <input id="changeTodoPositionInput" type="number">
+      <input id="changeTodoTextInput" type="text">
+    </div>
 <script>
-//To Do List
-//View todo x
-//Add todo x 
-//Edit todo x
-//Delete Todo x
-//Toggle Todo
-//Toggle All
 
 let todoList = {
   todos: [],
@@ -26,6 +35,7 @@ let todoList = {
         console.log("Your Todo list is empty");
       } else {
           for (let i = 0; i < this.todos.length; i++) {
+            console.log("My Todos:");
             if(this.todos[i].completed === true) {
               //print with (x) 
               console.log('(x)',this.todos[i].todoText);
@@ -82,21 +92,27 @@ let todoList = {
 };
 
 
-// Access to display to dos button
+let handlers = {
+  displayTodos: function() {
+    todoList.viewTodo();
+  },
+  toggleAll: function() {
+    todoList.toggleAll();
+  },
+  addTodo: function() {
+    let addTodoTextInput = document.getElementById('addTodoTextInput');
+    todoList.addTodo(addTodoTextInput.value);
+    addTodoTextInput.value = "";
+  },
+  changeTodo: function() {
+    let changeTodoPositionInput = document.getElementById("changeTodoPositionInput");
+    let changeTodoTextInput = document.getElementById("changeTodoTextInput");
 
-let displayTodosButton = document.getElementById('displayTodosButton');
-let toggleAllButton = document.getElementById('toggleAllButton')
-
-// Display todos when someone clicks Display todos button
-
-displayTodosButton.addEventListener('click', function() {
-  todoList.viewTodo();
-});
-
-toggleAllButton.addEventListener('click', function() {
-  todoList.toggleAll();
-});
-
+    todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
+    changeTodoPositionInput.value = '';
+    changeTodoTextInput.value = '';
+  }
+}
 
 </script>
 </body>
